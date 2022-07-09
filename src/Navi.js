@@ -1,13 +1,53 @@
-import React, { Component } from "react";
+import React from "react";
+import {
+  Collapse,
+  Navbar,
+  NavbarToggler,
+  NavbarBrand,
+  Nav,
+  NavItem,
+  NavLink,
+} from "reactstrap";
+import CartSummer from "./CartSummer";
 
-class Navi extends Component {
+export default class Example extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.toggle = this.toggle.bind(this);
+    this.state = {
+      isOpen: false,
+    };
+  }
+  toggle() {
+    this.setState({
+      isOpen: !this.state.isOpen,
+    });
+  }
   render() {
     return (
       <div>
-        <h2>Navi Component</h2>
+        <Navbar color="light" light expand="md">
+          <NavbarBrand href="/">Northwind App</NavbarBrand>
+          <NavbarToggler onClick={this.toggle} />
+          <Collapse isOpen={this.state.isOpen} navbar>
+            <Nav className="ms-auto" navbar>
+              <NavItem>
+                <NavLink href="/components/">Components</NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink href="https://github.com/reactstrap/reactstrap">
+                  GitHub
+                </NavLink>
+              </NavItem>
+              <CartSummer
+                removeFromCart={this.props.removeFromCart}
+                cart={this.props.cart}
+              />
+            </Nav>
+          </Collapse>
+        </Navbar>
       </div>
     );
   }
 }
-
-export default Navi;
